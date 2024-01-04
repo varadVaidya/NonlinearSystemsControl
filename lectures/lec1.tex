@@ -3,3 +3,178 @@
 \hrule
 \vspace{-0.5em}
 \section{Lecture 1 --- Introduction to Nonlinear Systems}
+
+In general, a nonlinear system can be defined with the following:
+\[
+    \begin{aligned}
+        f &: \mathbb{R}^n \to \mathbb{R}^n \\
+        \frac{dx}{dt} &= \dot{x} = f(t,x,u,d)  \\
+        y &= g(t,x,u,d)
+    \end{aligned}
+\]
+with the initial condition,
+\[
+    x(t_0) = x_0  
+\]
+where, \( x \in \mathbb{R}^n \) is the state, \( u \in \mathbb{R}^m \) is the control
+input, \( y \in \mathbb{R}^p \) is the output, and \( d \in \mathbb{R}^q \) is the 
+disturbance.
+
+We can also write the control signal \(u\) as a function of the state \(x\) and some 
+parameter vector \(\theta\). Thus, using this ``state feedback'' we have:
+\[
+    \begin{aligned}
+        u &= h(t,x,\theta) \\
+        \implies \dot{x} &= \bar{f} (t,x,\theta) \\
+    \end{aligned}
+\]
+This free choice of \(\theta\) allows us to design the system to meet certain requirements, or
+to optimize some performance metric etc.
+
+One of the special case of nonlinear systems is called as autonomous systems, where the
+system does not depend on time explicitly. Thus, we have:
+\[
+    \begin{aligned}
+        \dot{x} &= f(x) \\
+    \end{aligned}
+\]
+It is possible to convert a non-autonomous system to an autonomous system by adding a
+new state variable \(z\), such that:
+\[
+    \dot{z} = 1   
+\]
+and incorporating the new variable \(z\), in the state vector, increasing the order of the 
+system.
+\begin{note}
+    Note that, the state \(z\) and hence the state \(x\), is unbounded with time in this 
+    conversion.
+\end{note}  
+
+In the case of the linear systems, we have the following:
+\[
+    \begin{aligned}
+        \dot{x} & = A(t) x + B(t) u \\
+        y &= C(t) x + D(t) u 
+    \end{aligned}  
+\]
+with the solution of the above system being:
+\[
+    x(t) = \Phi(t,t_0) x(t_0) + \int\limits_{t_0}^{t} \Phi(t,\tau) B(\tau) u(\tau) d\tau
+\]
+with the state transition matrix \(\Phi(t,\tau)\). The state transition matrix simplifies
+even further under the case of LTI systems as:
+\[
+    \Phi(t,\tau) = e^{A(t-\tau)}  
+\]
+
+In genreal the solution of the nonlinear system cannot be wriiten in a closed form. However, there are
+certain observations that are present in the nonlinear systems, that are not present in the linear systems.
+
+\subsection{Observations in Nonlinear Systems (vs Linear Systems)}
+
+\subsubsection{Equillibrium}
+In general the eqillibrium of any system \(\dot{x} = f(x)\) is defined as the point \(x^{\star}\) where:
+\[
+    \left. f(x) \right|_{x^{\star}} = 0  \iff \left. \dot{x} \right|_{x^{\star}} = 0 
+\]
+\begin{example}[Linear Systems]
+    Consider the case of the linear system,
+    \[
+        \dot{x} = A x
+    \]
+    The eqillibrium of the above system is given by:
+    \[
+        Ax = 0 \implies x \in \mathcal{N}(A)
+    \]
+    where, \(\mathcal{N}(A)\) is the null space of the matrix \(A\).
+\end{example}
+
+No such existence of the eqillibrium is guaranteed in the case of the nonlinear systems. 
+Thus, we can have a nonlinear system with no eqillibrium, or multiple eqillibria.
+\begin{example}[Nonlinear Systems]
+Here are some examples of nonlinear systems with no, multiple or infiite equillibria.
+    \begin{enumerate}
+        \item
+        \[
+            \dot{x} = Ax \quad \quad A = \begin{bmatrix}
+                0 & 1 \\
+                -1 & 0  
+            \end{bmatrix}
+        \]
+        The above system has infiite equillibrium points, given by:
+        \[
+            x^{\star} = \alpha \begin{bmatrix}
+                0 \\ 1
+            \end{bmatrix} \quad \forall \alpha \in \mathbb{R}
+        \]
+        
+        \item
+        \[
+            \dot{x} = x^{2} + a \quad a > 0 
+        \]
+        This system has no eqillibrium point.
+
+        \item
+        \[
+            \dot{x} = x^{2} - a \quad a > 0
+        \]
+        This system has two eqillibrium points, given by \(x^{\star} = \pm \sqrt{a}\).
+    \end{enumerate}
+\end{example}
+
+\subsubsection{Finite Escape Time}
+In general, the solution of the nonlinear system is not guaranteed to be bounded for all time, and 
+can escape to infinity in a finite time. This is not possible in the case of the linear systems.
+\begin{example}[Linear Systems]
+    Consider the case of the linear system,
+    \[
+        \dot{x} = x \implies x(t) = e^{t} x_0
+    \]
+    The solution approaches infinity as \(t \to \infty\), in an asymptotic manner, but never reaches
+    infinity in a finite time.
+\end{example}
+But, in the case of nonlinear systems, the solution can escape to infinity in a finite time.
+\begin{example}[Nonlinear Systems]
+    Consider the case of the nonlinear system,
+    \[
+        \dot{x} = 1 + x^{2} \quad x \in \mathbb{R} 
+    \]
+    Integrating the system, we get:
+    \[
+        \begin{aligned}
+            \frac{dx}{1+x^{2}} = dt \\
+            \implies \left. \tan^{-1} x \right|_{x_0}^{x(t)} &= \left. t \right|_{0}^{t} \\
+            \implies x(t) &= \tan(t + \tan^{-1}(x_0))
+        \end{aligned}
+    \]
+    Let \(x_0 = 0\), then we have:
+    \[
+        x(t) = \tan(t)
+    \]
+    The solution of the above system, approaches \(\infty\) as \(t \to \frac{\pi}{2}\). Since the solution
+    goes unbounded in a finite time, we say that the system has a finite escape time.  
+\end{example}
+
+\subsection{Uniqueness of Solution}
+In general, the solution of the nonlinear system is not unique. 
+\begin{example}[Uniqueness of Solution]
+    Consider the following system:
+    \[
+        \dot{x} = \sqrt{2} ,x(0) = 0 , x \in \mathbb{R}  
+    \]
+    For this system,
+    \[
+        x \equiv 0 \text{ is a solution}
+    \]
+    But, we can also have the following solution:
+    \[
+        x_\alpha = \begin{dcases}
+            \frac{(t - \alpha)^{2}}{4}, & t \geq \alpha, \alpha > 0 ;\\
+            0 , & t< \alpha  ;\\
+        \end{dcases}
+    \]
+    for each \(\alpha \in \mathbb{R}\), with the same initial conditions, we have infiite solutions 
+\end{example}
+Thus, the solution of the nonlinear system is not unique.
+This is a big problem, as we cannot predict the behaviour of the system, which can lead to break
+down of the system.
