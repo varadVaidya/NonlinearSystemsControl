@@ -1,0 +1,14 @@
+
+
+\begin{tikzpicture}[
+    declare function={f(\x,\y) = -3 * \x ;},
+    declare function={g(\x,\y) = -1 * \y ;}
+    ]
+    \begin{axis}[
+        simplePhase,
+        title={$\lambda_1<\lambda _2<0$},
+        width=\textwidth
+      ]
+      \addplot3 (x,y,0);
+    \end{axis}
+  \end{tikzpicture}

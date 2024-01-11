@@ -1,0 +1,14 @@
+\begin{center}
+    \begin{tikzpicture}[
+        declare function={f(\x,\y) = 1 * \x ;},
+        declare function={g(\x,\y) = 1 * \y ;}
+        ]
+        \begin{axis}[
+            simplePhase,
+            title={$\lambda_1<\lambda _2<0$},
+            width=\linewidth
+          ]
+          \addplot3 (x,y,0);
+        \end{axis}
+      \end{tikzpicture}
+    \end{center}

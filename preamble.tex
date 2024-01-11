@@ -18,12 +18,18 @@
 \usepackage{cancel}
 % Lets us edit the caption of a figure.
 \usepackage{caption}
+\usepackage{subcaption}
 % Lets us import pdf directly in our tex code.
 \usepackage{pdfpages}
 % Lets us do algorithm stuff.
 \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
 % Use a smiley face for our qed symbol.
+\usepackage{tikz}
 \usepackage{tikzsymbols}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepackage{derivative}
+
 \renewcommand\qedsymbol{$\Laughey$}
 
 \def\class{article}
@@ -695,3 +701,29 @@
 \newtheorem*{observe}{Observe}
 \newtheorem*{property}{Property}
 \newtheorem*{intuition}{Intuition}
+
+
+%%%%%%%%%%%%%%%%%%%%% PGF PLOT %%%%%%%%%%%%%%%%%%%
+\pgfplotsset{ % Define a common style, so we don't repeat ourselves
+  simplePhase/.style={
+    width=0.6\textwidth, % Overall width of the plot
+    axis equal image, % Unit vectors for both axes have the same length
+    view={0}{90}, % We need to use "3D" plots, but we set the view so we look at them from straight up
+    xmin=-2.1, xmax=2.1, % Axis limits
+    ymin=-2.1, ymax=2.1,
+    domain=-2:2, y domain=-2:2, % Domain over which to evaluate the functions
+    xtick={-2,-1,...,2}, ytick={-2,-1,...,2}, % Tick marks %
+    samples=15, % How many arrows?
+    cycle list={    % Plot styles
+      gray,
+      quiver={
+        u={f(x,y)}, v={g(x,y)}, % End points of the arrows
+        scale arrows=0.125,
+        every arrow/.append style={
+          -latex % Arrow tip
+        },
+      }\\
+      red, samples=31, smooth, very thick, no markers, domain=-2:2\\ % The plot style for the function
+    }
+  }
+}
