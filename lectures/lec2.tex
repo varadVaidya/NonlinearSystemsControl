@@ -112,7 +112,7 @@ Thus,
     
 \end{example}
 
-\subsection{Phase Portraits}
+\subsection{2D Phase Portraits}
 Let the two dimensional system be defined by
 \[
     \dot{x}_1 = f_1(x_1, x_2) \quad \dot{x}_2 = f_2(x_1, x_2) \implies \dot{x} = f(x)  
@@ -160,16 +160,58 @@ Thus, the solution can be split into three cases similar to the one done above\\
 \[
     y_1(t) = e^{\lambda _1 t} y_1(0) \quad y_2(t) = e^{\lambda _2 t} y_2(0)
 \]
+Thus, depending on the value of \(\lambda _1\) and \(\lambda _2\), we can have the following
+phase portraits:\\
+\medskip%
+\begin{minipage}
+    {0.5\textwidth}
+    \input{figures/phaseportraits/case11.tex}
+\end{minipage}
+\begin{minipage}
+    {0.5\textwidth}
+    \input{figures/phaseportraits/case12.tex}
+\end{minipage}
+\centerline{\begin{minipage}
+    {0.5\textwidth}
+    \input{figures/phaseportraits/case13.tex}
+\end{minipage}}\\
+% \input{figures/phaseportraits/case13.tex}
+
+% \input{figures/phaseportraits/case11.tex}
+% \input{figures/phaseportraits/case12.tex}
+\medskip
 \textbf{Case 2:}
 \[
     \begin{aligned}
-        y_1(t) &= e^{\lambda _1 t} \left(   y_1(0) + t y_2(0)  \right)\\
-        y_2(t) &= e^{\lambda _1 t} y_2(0)
+        y_1(t) &= e^{\lambda t} \left(   y_1(0) + t y_2(0)  \right)\\
+        y_2(t) &= e^{\lambda t} y_2(0)
     \end{aligned}
 \]
+Simillary, we can have the following phase portraits depending on the value of \(\lambda\):\\
+\medskip%
+\begin{minipage}
+    {0.5\textwidth}
+    \input{figures/phaseportraits/case21.tex}
+\end{minipage}
+\begin{minipage}
+    {0.5\textwidth}
+    \input{figures/phaseportraits/case22.tex}
+\end{minipage}\\
+\medskip%
 \textbf{Case 3:} Let \( r\coloneqq \sqrt{y_1 ^{2} + y_{2^{2} }  } \) and \(\theta \coloneqq \tan ^{-1}  \left( \frac{y_2}{y_1}  \right) \)
 Substituing the values of \(y_1\) and \(y_2\) in the equation, and simplifying, we get:
 \[
     \dot{r} = \alpha r \quad \dot{\theta} = \beta 
 \]
 Thus, switching in the polar form, the transformed system are evolving independently of each other.
+The phase portrait is given by:\\
+\medskip%
+\begin{minipage}
+    {0.5\textwidth}
+    \input{figures/phaseportraits/case31.tex}
+\end{minipage}
+\begin{minipage}
+    {0.5\textwidth}
+    \input{figures/phaseportraits/case32.tex}
+\end{minipage}\\
+% \input{figures/phaseportraits/case11.tex}

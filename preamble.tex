@@ -709,21 +709,21 @@
     width=0.6\textwidth, % Overall width of the plot
     axis equal image, % Unit vectors for both axes have the same length
     view={0}{90}, % We need to use "3D" plots, but we set the view so we look at them from straight up
-    xmin=-2.1, xmax=2.1, % Axis limits
-    ymin=-2.1, ymax=2.1,
-    domain=-2:2, y domain=-2:2, % Domain over which to evaluate the functions
-    xtick={-2,-1,...,2}, ytick={-2,-1,...,2}, % Tick marks %
-    samples=15, % How many arrows?
+    xmin=-3.1, xmax=3.1, % Axis limits
+    ymin=-3.1, ymax=3.1,
+    domain=-3:3, y domain=-3:3, % Domain over which to evaluate the functions
+    xtick={-3,-2,...,3}, ytick={-3,-2,...,3}, % Tick marks %
+    samples=13, % How many arrows?
     cycle list={    % Plot styles
-      gray,
+    darkgray,
       quiver={
         u={f(x,y)}, v={g(x,y)}, % End points of the arrows
-        scale arrows=0.125,
+        scale arrows=0.175,
         every arrow/.append style={
           -latex % Arrow tip
         },
       }\\
-      red, samples=31, smooth, very thick, no markers, domain=-2:2\\ % The plot style for the function
+      red, samples=31, smooth, thick, no markers, domain=-3:3\\ % The plot style for the function
     }
   }
 }
