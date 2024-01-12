@@ -156,8 +156,50 @@ and both \(F\) and \(F^{-1} \) exits and are continuous, such that \(F(\phi_t^f)
 \end{tikzpicture}
 \label{thm:hartmanGrobman}
 \end{theorem}
-The map \(F\) in \autoref{thm:hartmanGrobman} maps from the nonlinear world to the linear world. 
+\vspace{0.5em}
 
+The map \(F\) in \autoref{thm:hartmanGrobman} maps from the nonlinear world to the linear world. 
+\subsubsection{Pendulumn}
+One example of periodicity in phase portraits is given by the pendulumn. 
+This type of periodic behaviour is not found in linear systems.
+\begin{example}[Pendulumn]
+    Consider a pendulumn, with normalised dynamics given by:
+    \[
+        \begin{aligned}
+            \dot{x}_1 &= x_2  \\
+            \dot{x}_2 &= -\sin(x_1) - x_2
+        \end{aligned}
+    \]
+    The equillibrium points of this system are given by:
+    \[
+        x_1 = k\pi \quad x_2 = 0 \quad k\in\mathbb{Z}
+    \]
+    Calculating the jacobian of the system, we have:
+    \[
+        A = \left . \frac{\partial f}{\partial x} \right |_{x=x^{\star}} = \begin{bmatrix}
+            0 & 1 \\
+            -\cos(x_1) & -1
+        \end{bmatrix}
+    \]
+    Evalating the jacobian at \((0,0)\) and \((\pi,0)\) we have :
+    \[
+        \begin{aligned}
+            \left. \frac{\partial f}{\partial x} \right |_{x=(0,0)} &= \begin{bmatrix}
+                0 & 1 \\
+                -1 & -1
+            \end{bmatrix} \implies \lambda = \frac{-1 \pm \sqrt{3}}{2} \\
+            \left. \frac{\partial f}{\partial x} \right |_{x=(\pi,0)} &= \begin{bmatrix}
+                0 & 1 \\
+                1 & -1
+            \end{bmatrix} \implies \lambda = \frac{-1 \pm \sqrt{5}}{2} \\
+        \end{aligned}
+    \]
+    The phase portrait of the system is given by:
+    \begin{center}
+        \includegraphics[width=\linewidth]{figures/phaseportraits/pend.png}
+    \end{center}
+    The image source is \href{https://tikz.net/dynamics_phaseportrait/}{linked here}
+\end{example}
 
 
 
