@@ -1,0 +1,232 @@
+\hfill\small{4 Jan 2024}
+\vspace{0.5em}
+\hrule
+\vspace{-0.5em}
+\section{Contraction Mapping}
+
+\subsection{Math Review}
+
+\subsubsection{Vector Spaces}
+
+The set of all n dimensional vector \(x = [x_1, x_2, ..., x_n]^{\top} \) with each element being 
+a real number is denoted as \(\mathbb{R}^n\) and defines the \(n\)-dimensional Euclidean space.
+The inner product of two vectors \(x\) and \(y\) is defined as:
+\[
+    x^{\top} y = \sum\limits_{i=1}^{n} x_i y_i
+\]
+
+The norm of a vector \(x\) is a real valued function with the properties:
+
+\begin{itemize}
+    \item \(\lVert x \rVert \geq 0 \quad \forall x \in \mathbb{R}^n\) with \(\lVert x \rVert = 0 \iff x = 0\)
+    \item \(\lVert \alpha x \rVert = \lvert \alpha \rvert \lVert x \rVert \quad \forall \alpha \in \mathbb{R}\)
+    \item \(\lVert x + y \rVert \leq \lVert x \rVert + \lVert y \rVert \quad \forall x, y \in \mathbb{R}^n\)
+\end{itemize}
+
+The class of \(p\)-norm is defined as:
+\[
+    \lVert x \rVert_p = \left( \sum\limits_{i=1}^{n} \lvert x_i \rvert^p \right)^{\frac{1}{p}} 
+    , \quad 1 \leq p < \infty 
+\]
+with the special case of \(p = \infty\) being:
+\[
+    \lVert x \rVert_{\infty} = \max\limits_{i} \lvert x_i \rvert
+\]
+
+The most commonly used norms are the \(1\)-norm, \(2\)-norm and \(\infty\)-norm are defined as:
+\[
+    \begin{aligned}
+        \lVert x \rVert_1 &= \sum\limits_{i=1}^{n} \lvert x_i \rvert \\
+        \lVert x \rVert_2 &= \sqrt{\sum\limits_{i=1}^{n} \lvert x_i \rvert^2} \\
+        \lVert x \rVert_{\infty} &= \max\limits_{i} \lvert x_i \rvert
+    \end{aligned}
+\]
+
+All \(p\)-norms are equivalent in the sense that if \(\lVert \cdot \rVert_\alpha\) and
+\(\lVert \cdot \rVert_\beta\) are two \(p\)-norms, then there exists two positive constants
+\(c_1\) and \(c_2\) such that:
+\[
+    c_1 \lVert x \rVert_\alpha \leq \lVert x \rVert_\beta \leq c_2 \lVert x \rVert_\alpha \quad \forall x \in \mathbb{R}^n
+\]
+An important property of the \(p\)-norm is the Holder's inequality: 
+\[
+    \lvert x^{\top} y \rvert \leq \lVert x \rVert_p \lVert y \rVert_q \quad,
+    \frac{1}{p} + \frac{1}{q} = 1, \quad  \forall x, y \in \mathbb{R}^n
+\]
+Many times when the properties deduced from the basic properties satisfied by any norm, in 
+such cases the norm is denoted by \(\lVert \cdot \rVert\) without any subscript, indicating
+that the norm can be any \(p\)-norm.
+
+The matrix A defines a linear mapping \(y = Ax\) from \(\mathbb{R}^n\) to \(\mathbb{R}^m\).
+The induced norm of the matrix A is defined as:
+\[
+    \lVert A \rVert_p = \sup\limits_{x \neq 0} \frac{\lVert Ax \rVert_p}{\lVert x \rVert_p}
+    = \max\limits_{\lVert x \rVert_p = 1} \lVert Ax \rVert_p \quad 1 \leq p \leq \infty
+\]
+This norm for p = 1, 2 and \(\infty\) is defined as:
+\[
+    \begin{aligned}
+        \lVert A \rVert_1 &= \max\limits_{1 \leq j \leq n} \sum\limits_{i=1}^{m} \lvert a_{ij} \rvert \\
+        \lVert A \rVert_2 &= \sqrt{\lambda_{\max}(A^{\top} A)} \\
+        \lVert A \rVert_{\infty} &= \max\limits_{1 \leq i \leq m} \sum\limits_{j=1}^{n} \lvert a_{ij} \rvert
+    \end{aligned}  
+\]
+where \(\lambda_{\max}(A^{\top} A)\) is the largest eigenvalue of the matrix \(A^{\top} A\).
+
+Some useful properties of the induced matrix norm are for real matrices \(A \in \mathbb{R}^{m \times n}\)
+and \(B \in \mathbb{R}^{n \times l}\) are:
+\[
+    \begin{aligned}
+        \frac{1}{\sqrt{n}} \lVert A \rVert_\infty &\leq \lVert A \rVert_2 \leq \sqrt{m} \lVert A \rVert_\infty \\
+        \frac{1}{\sqrt{m}} \lVert A \rVert_1 &\leq \lVert A \rVert_2 \leq \sqrt{n} \lVert A \rVert_1 \\
+        \lVert A \rVert_2 & \leq \sqrt{\lVert A \rVert_1 \lVert A \rVert_\infty} \\
+        \lVert AB \rVert_p & \leq \lVert A \rVert_p \lVert B \rVert_p \\
+    \end{aligned}
+\]
+
+\subsubsection{Sequence, Series and Sets} 
+
+\textbf{Convergence of Sequence}: A sequence of vectors \(x_0,x_1, \dots , x_k, \dots\) 
+in \(\mathbb{R}^n\) denoted by \(\{x_k\}\), is said to converge to a a limit vector \(x\) if :
+\[
+    \lVert x_k - x \rVert \to 0 \quad \text{as} \quad k \to \infty
+\]
+which is equivalent to:
+\[
+    \lVert x_k - x \rVert < \epsilon \quad \forall k \geq N \text{ for some } 
+    N \in \mathbb{N} \text{ and } \epsilon > 0
+\] 
+A vector \(x\) is an accumulation point of the sequence \(\{x_k\}\) if there exists a subsequence
+\(\{x_{k_j}\}\) of \(\{x_k\}\) that converges to \(x\).
+
+A bounded sequence \(\{x_k\}\) in \(\mathbb{R}^n\) has atleast one accumulation point in \(\mathbb{R}^n\).
+A sequence \(r_k\) is said to be increasing if \(r_k \leq r_{k+1}\) for all \(k \in \mathbb{N}\).
+It is said to be strictly increasing if \(r_k < r_{k+1}\) for all \(k \in \mathbb{N}\). And similarly
+for decreasing and strictly decreasing sequences.
+
+An increasing sequence bounded from above converges to a real number. Similarly, a decreasing sequence
+bounded from below converges to a real number.
+
+
+\textbf{Sets}: A subset \(S \subset \mathbb{R}^n\) is said to be open if for every \(x \in S\), there exists
+a neighborhood of \(x\):
+\[
+    \mathcal{N}_\epsilon(x) = \{z \in \mathbb{R}^n \mid \lVert z - x \rVert < \epsilon\}  
+\] 
+such that \(\mathcal{N}_\epsilon(x) \subset S\). A set is said to be closed if its complement is open.
+Equivalently, a set is closed if and only if every convergent sequence in the set \(S\)
+has its limit in \(S\).
+
+A set is said to be bounded if there is \(r>0\) such that
+\[
+    \lVert x \rVert < r \quad \forall x \in S
+\]
+Thus, a compact set is a set that is closed and bounded.
+
+A point \(p\) is a boundary point of a set \(S\) if every neighborhood of \(p\) contains at least one
+point in \(S\) and at least one point not in \(S\). The set of all boundary points of \(S\) is called
+the boundary of \(S\) and is denoted by \(\partial S\). A closed set contains all its boundary points,
+with open sets containing none of its boundary points. The interior of a set \(S\) is the set of all
+points in \(S\) that are not boundary points of \(S\) i.e. \(S \setminus \partial S\).
+The closure of a set \(S\) is the union of \(S\) and its boundary i.e. \(\overline{S} \coloneqq S \cup \partial S\). 
+
+A open set \(S\) is connected if every pair of points in \(S\) can be joined by a curve in \(S\). The
+set \(S\) is called convex if for every pair of points \(x, y \in S\), and for every \(\lambda \in [0,1]\),
+\(\lambda x + (1 - \lambda) y \in S\).
+
+\subsubsection{Normed Linear Spaces}
+A linear space \(\mathcal{X} \) is a normed linear space if, to each vector \(x \in \mathcal{X}\),
+there is a real valued norm \(\lVert x \rVert \) that satifies the following properties:
+\begin{itemize}
+    \item \(\lVert x \rVert \geq 0 \quad \forall x \in \mathcal{X}\) with \(\lVert x \rVert = 0 \iff x = 0\)
+    \item \(\lVert \alpha x \rVert = \lvert \alpha \rvert \lVert x \rVert \quad \forall \alpha \in \mathbb{R}\)
+    \item \(\lVert x + y \rVert \leq \lVert x \rVert + \lVert y \rVert \quad \forall x, y \in \mathcal{X}\)
+\end{itemize}
+To denote that a norm \(\lVert \cdot \rVert \) is a norm on the linear space \(\mathcal{X}\), we write
+the norm as \(\lVert \cdot \rVert_\mathcal{X} \).
+
+\textbf{Convergence} A sequence \(\{x_k\} \in \mathcal{X} \) is said to converge to \(x \in \mathcal{X}\)
+if:
+\[
+    \lVert x_k - x \rVert \to 0 \quad \text{as} \quad k \to \infty
+\]
+\textbf{Closed Set}: A set \(S \subset \mathcal{X}\) is said to be closed if every convergent sequence
+in \(S\) has its limit in \(S\).
+
+\textbf{Cauchy Sequence}: A sequence \(\{x_k\} \in \mathcal{X}\) is said to be a Cauchy sequence if:
+\[
+    \lVert x_k - x_l \rVert \to 0 \quad \text{as} \quad k, l \to \infty
+\]
+Every convergent sequence is a Cauchy sequence, the converse is true if the space \(\mathcal{X}\) is
+complete.
+
+\textbf{Banch Space}: A normed linear space \(\mathcal{X}\) is said to be a complete space or a Banch space
+if every Cauchy sequence in \(\mathcal{X}\) converges to a vector in \(\mathcal{X}\).
+
+\subsection{Contraction Mapping}
+The motivation for using contraction mapping in the non linear systems is that the solution of 
+the non linear system can be said as a \emph{fixed point} of the non linear map.
+
+Consider the system \(\dot{x} = f(t,x(t)) \; x(t_0) = x_0 \; t \in [t_0, t_f]\). The solution of the
+the system can be written as:
+\[
+    x(t) = x_0 + \int\limits_{t_0}^{t} f(s, x(\tau )) d\tau
+\]
+Envisioning this as solving the system in one go we can the above as:
+\[
+    x(\cdot) = x_0 + \int\limits_{t_0}^{(\cdot)} f(s, x(\tau )) d\tau
+\]
+In other words, the solution of the system is a fixed point of the map \(F\): 
+\[
+    x(\cdot) = F(x(\cdot)) \quad \text{ where }F \text{ is some map}  
+\]
+This can be explained using a linear system. Consider the system \(\dot{x} = Ax, \; x(t_0) = x_0\).
+Then the map \(F\) is defined as:
+\[
+    F(x(\cdot))(t) = x_0 + \int\limits_{t_0}^{t} A x(\tau) d\tau
+\]
+A common method of finding the solution of finding such a fixed point is using the successive
+approximation method. Thus, the iterations are defined as:
+\[
+    x_{k+1}(t) = x_0 + \int\limits_{t_0}^{t} A x_k(\tau) d\tau
+\]
+Thus, we have the following
+\[
+    \begin{aligned}
+        x_0(s) &= x_0 \quad \forall s \in [t_0, t_1] \\
+        x_1(t) &= x_0 + \int\limits_{t_0}^{t} A x_0(\tau) d\tau = \left[ I + A(t-t_0) \right] x_0\\
+        x_2(t) &= \cdots  = \left[ I + A(t-t_0) + \frac{A^2(t-t_0)^2}{2!} \right] x_0 \\
+        \implies x_k(t) &= e^{A(t-t_0)} x_0
+    \end{aligned}
+\]
+
+Thus, we can now define the contraction theorem as follows:
+\begin{theorem}[Contraction Theorem]
+    Let \(\mathcal{X} \) be a complete normed linear space and let \(\mathcal{S} \) be a closed subset 
+    of \(\mathcal{X} \). Let \(T : \mathcal{S} \to  \mathcal{S} \) such that:
+    \[
+        \lVert T(x) - T(y) \rVert \leq \rho  \lVert x - y \rVert \quad \forall x, y \in \mathcal{S}, \;
+        \rho \in [0,1)
+    \]
+    Then,
+    \begin{itemize}
+        \item there exits  unique vector \(x^{\star} \in \mathcal{S}\) such that \(T(x^{\star}) = x^{\star}\)
+        \item \(x^{\star} \) can be obtained by fixed point iteration i.e. 
+        \[
+            x^{\star}  = \lim\limits_{k \to \infty} x_k \quad \text{where}, \; x_{k+1} = T(x_k), \;
+            x_0 \in \mathcal{S}
+        \]
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+    Choose an arbitrary \(x_0 \in \mathcal{S}\) and define,
+    \[
+        x_{k+1} = T(x_k) \quad T : \mathcal{S} \to \mathcal{S} \implies x_k \in \mathcal{S} \quad
+         \forall k \geq 0
+    \]
+    The proof follows the following series of claims:
+    \begin{claims}
+        \(\{x_k\}\) is a Cauchy sequence.
+    \end{claims}
+\end{proof}
+
