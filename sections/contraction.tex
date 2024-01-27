@@ -228,5 +228,119 @@ Thus, we can now define the contraction theorem as follows:
     \begin{claims}
         \(\{x_k\}\) is a Cauchy sequence.
     \end{claims}
-\end{proof}
+    \[
+        \begin{aligned}
+            \lVert x_{k+1} - x_k \rVert = \lVert T(x_k) - T(x_{k-1}) \rVert &\leq \rho \lVert x_k - x_{k-1} \rVert\\
+            &\leq \rho^2 \lVert x_{k-1} - x_{k-2} \rVert \\
+            &\leq \rho^k \lVert x_1 - x_0 \rVert
+        \end{aligned}
+    \]
+    Now, 
+    \[
+        \begin{aligned}
+            \lVert x_{k+r} - x_k \rVert &\leq \lVert x_{k+r} - x_{k+r-1} \rVert +
+             \lVert x_{k+r-1} - x_{k+r-2} \rVert + \cdots + \lVert x_{k+1} - x_k \rVert \\
+             & \leq \left( 
+                    \rho^{k+r-1} + \rho^{k+r-2} + \cdots + \rho^k
+              \right) 
+                \lVert x_1 - x_0 \rVert \\
+                & \leq \frac{\rho^k}{1 - \rho} \lVert x_1 - x_0 \rVert \implies \{x_k\} \text{ is a Cauchy sequence}
+        \end{aligned}
+    \]
+    \begin{claims}
+        \(\{x_k\}\) converges to some \(x^{\star} \in \mathcal{S}\) as \(k \to \infty\).
+    \end{claims}
+    Since \(\mathcal{S}\) is complete and closed, \(\{x_k\}\) converges to some \(x^{\star} \in \mathcal{S}\).
+    \begin{claims}
+        \(x^{\star} \) is a fixed point of \(T\). i.e. \(T(x^{\star}) = x^{\star}\)
+    \end{claims}
+    We have:
+    \[
+        \begin{aligned}
+            \lVert x^{\star} - T(x^{\star}) \rVert &\leq  \lVert x^{\star} - x_k \rVert + \lVert x_k - T(x^{\star}) \rVert \\
+            & = \lVert x^{\star} - x_k \rVert + \lVert T(x_k) - T(x^{\star}) \rVert \\
+            &\leq \underbrace{ \lVert x^{\star} - x_k \rVert + \rho \lVert x_k - x^{\star} \rVert}_{\to 0 \text{ as } k \to \infty} \\
+            & \implies \lVert x^{\star} - T(x^{\star}) \rVert = 0 \implies x^{\star} = T(x^{\star})
+        \end{aligned}
+    \]
 
+    \begin{claims}
+        \(x^{\star} \) is unique fixed point of \(T \in \mathcal{S}\).
+    \end{claims}
+    \textbf{By Contradiction}: Let \(x^{\star}\) and \(y^{\star}\) be two fixed points of \(T\) such that 
+    \(y^{\star} = T(y^{\star})\), \(x^{\star} = T(x^{\star})\) and \(x^{\star} \neq y^{\star}\). Then,
+    \[
+        \begin{aligned}
+            \lVert x^{\star} - y^{\star} \rVert &= \lVert T(x^{\star}) - T(y^{\star}) \rVert \\
+            &\leq \rho \lVert x^{\star} - y^{\star} \rVert \implies \lVert x^{\star} - y^{\star} \rVert = 0 \\
+            &\implies x^{\star} = y^{\star} \quad \text{which is a contradiction}
+        \end{aligned}
+    \]  
+    Thus, \(x^{\star}\) is the unique fixed point of \(T\).
+\end{proof}\vspace{1em}
+We can now use this result to prove the local existence and uniqueness of the solution of the the 
+nonlinear system \(\dot{x} = f(t,x(t)), \; x(t_0) = x_0, \; t \in [t_0, t_f]\), where \(f\) is piecewise
+continuous.
+\begin{theorem}[Local Existence and Uniqueness]
+    Let \(\dot{x} = f(t,x(t)), \; x(t_0) = x_0, \; t \in [t_0, t_f]\) be a nonlinear system where \(f\) is
+    piecewise continuous, and satifies the lipschitz condition,
+    \[
+        \lVert f(t,x) - f(t,y) \rVert \leq L \lVert x - y \rVert, \;
+        t \in [t_0, t_f], \; L > 0  \quad \forall x, y \in B_r(x_0) \coloneqq \{x \mid \lVert x - x_0 \rVert \leq r\}
+    \]
+    Then, \( \exists \; \delta > 0\) such that the system has a unique solution on the interval
+    \([t_0, t_0 + \delta]\).
+\end{theorem}
+\begin{proof}
+    Define the map \(P\) as:
+    \[
+        P(\cdot)(t) \coloneqq  x_0 + \int\limits_{t_0}^{t} f(s, x(\tau)) d\tau \implies x(t) = P(x(\cdot))(t)
+    \]
+    Let,
+    \[
+        \mathcal{X}  \coloneqq  C[t_0, t_0 + \delta] \to \text{ set of continuous functions on } [t_0, t_0 + \delta] 
+    \]
+    Note on abuse of notation. 
+    \[
+        x \in \mathcal{X} \quad \text{ but } \quad x(t) \in \mathbb{R}^n
+    \]
+    Defining the norm on \(\mathcal{X}\) as:
+    \[
+        {\lVert x \rVert}_C \coloneqq \max\limits_{t \in [t_0, t_0 + \delta]} \lVert x(t) \rVert  
+    \]
+    The above norm is genrelising \(\infty \)-norm to function spaces.
+    Thus, we have:
+    \[
+        \mathcal{S} \coloneqq \{x \in \mathcal{X} \mid {\lVert x - x_0 \rVert}_C \leq r\}
+    \]
+    Thus, we have \(\mathcal{S} : \mathcal{X} \to \mathcal{X}\). But we need to show that 
+    \( P : \mathcal{S} \to \mathcal{S}\). To achieve this we note the following two observations:
+    \begin{observe}[1]
+        \(f\) is piecewise continuous on \([t_0, t_0 + \delta]\) and thus \( \lVert f(t,x) \rVert\) 
+        is piecewise continuous too.
+        Let,
+        \[
+            h \coloneqq \max\limits_{t \in [t_0, t_0 + \delta]} \lVert f(t,x) \rVert
+        \]
+    \end{observe}
+    \begin{observe}[2]
+        \[
+            \begin{aligned}
+                \lVert P(x(\cdot))(t) - x_0 \rVert &= \left\lVert \int\limits_{t_0}^{t} f(\tau, x(\tau)) d\tau \right\rVert \\
+                &\leq \int\limits_{t_0}^{t} \left\lVert f(\tau , x(\tau)) - f(\tau, x_0) + f(\tau, x_0) \right\rVert d\tau\\
+                &\leq \int\limits_{t_0}^{t} \lVert f(\tau, x(\tau)) - f(\tau, x_0) \rVert +
+                 \lVert f(\tau, x_0) \rVert d\tau \\
+                &\leq \int\limits_{t_0}^{t} L \lVert x(\tau) - x_0 \rVert + h d\tau 
+                \leq \int\limits_{t_0}^{t} L r + h d\tau = (t - t_0) (Lr + h) \\&= \delta (Lr + h)
+            \end{aligned}
+        \]
+        Since this is true for all \(t \in [t_0, t_0 + \delta]\), we have:
+        \[
+            \lVert P(x(\cdot)) - x_0 \rVert \leq \delta (Lr + h) \leq \underbrace{r}_{\text{enforce this}}
+        \]
+        The condition on \(\delta \) is:
+        \[
+            \delta (Lr + h) \leq r \implies \delta \leq \frac{r}{Lr + h}  
+        \]
+    \end{observe}
+\end{proof}
