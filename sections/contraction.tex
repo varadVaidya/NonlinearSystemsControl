@@ -343,4 +343,50 @@ continuous.
             \delta (Lr + h) \leq r \implies \delta \leq \frac{r}{Lr + h}  
         \]
     \end{observe}
+    Now, choose \(\delta \) such that \(P: \mathcal{S} \to \mathcal{S} \) is a contraction mapping. Thus,
+    \[
+        \begin{aligned}
+            \lVert P(x(\cdot))(t) - P(y(\cdot))(t) \rVert &= \left\lVert \int\limits_{t_0}^{t} f(\tau, x(\tau)) -
+             f(\tau, y(\tau)) d\tau \right\rVert \\
+                &\leq \int\limits_{t_0}^{t} \lVert f(\tau, x(\tau)) - f(\tau, y(\tau)) \rVert d\tau \\
+                &\leq \int\limits_{t_0}^{t} L \lVert x(\tau) - y(\tau) \rVert d\tau \\
+                &\leq L \delta \lVert x - y \rVert_C \quad \forall \; t \in [t_0, t_0 + \delta] \\
+                &\leq \rho \lVert x(\cdot) - y(\cdot) \rVert_C \quad \rho \in [0,1)\\
+                & \implies  \delta \leq \frac{\rho}{L}
+        \end{aligned}
+    \]
+    Picking \(\delta \leq \min\left\{ \frac{r}{Lr + h}, \frac{\rho}{L}, t_1 - t_0 \right\}\) we have the contraction
+    on the \(P\). Thus, \(P(x(\cdot))\) has a unique fixed point \(x^{\star} \in \mathcal{S}\). Now,
+    we need to extend the result from map \(\mathcal{S}\) to map \(\mathcal{X}\).
+
+    Even if there are multiple solutions in \(\mathcal{X}\), it must be that \(x(t) \in B_r(x_0) \forall 
+    t \in [t_0, t_0 + \delta]\) for some \(\mu > 0 \).
+    Let, \(t_0 + \mu \) be the first time when \(\lVert x(t) - x_0 \rVert < r \). Then, we have:
+    \[
+    \begin{aligned}
+        r &= \left\lVert \int\limits_{t_0}^{t_0 + \mu} f(\tau, x(\tau)) d\tau \right\rVert \\
+        &\leq \int\limits_{t_0}^{t_0 + \mu} Lr + h d\tau = \mu (Lr + h) \\
+        &\implies \mu \geq \frac{r}{Lr + h} \geq \delta
+    \end{aligned}    
+    \]
+    Thus, the same result holds for \(\mathcal{X}\) too, completing the proof.
 \end{proof}
+\subsection{Lipschitz Condition}
+A function \(f : \mathbb{R}^n \to \mathbb{R}^n\) is said to satisfy the Lipschitz condition in \(x\) at \(x_0\)
+if:
+\[
+    \lVert f(t,x) - f(t,y) \rVert \leq L \lVert x - y \rVert \quad \forall
+     x, y \in B_r(x_0) \; \forall t \in [t_0, t_f]
+\]  
+\begin{example}[Lipschitz Condition]
+    Let \(f: I \subset \mathbb{R} \to \mathbb{R} \ni \vert f^{\prime} (x) \vert \leq k, \forall x \in I\).
+    Then, \(f\) satisfies the Lipschitz condition on I with \(L = k\):
+    \[
+        \lvert f(x) - f(y) \rvert = \left\lvert \int\limits_{x}^{y} f^{\prime} (s) ds \right\rvert \leq
+        \int\limits_{x}^{y} \lvert f^{\prime} (s) \rvert ds \leq k \lvert x - y \rvert  
+    \]
+\end{example}
+\begin{lemma}[Lipschitz Condition for a Convex Set]
+    Let \(f : [a,b] \times D \to \mathbb{R}^n\) be a continuous function, where \(D\) is a
+    compact subset of \(\mathbb{R}^n\).
+\end{lemma}
