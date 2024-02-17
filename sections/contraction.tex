@@ -2,7 +2,7 @@
 \vspace{0.5em}
 \hrule
 \vspace{-0.5em}
-\section{Contraction Mapping}
+\section{Contraction Mapping and Comparison Lemma}
 
 \subsection{Math Review}
 
@@ -373,11 +373,20 @@ continuous.
 \end{proof}
 \subsection{Lipschitz Condition}
 A function \(f : \mathbb{R}^n \to \mathbb{R}^n\) is said to satisfy the Lipschitz condition in \(x\) at \(x_0\)
-if:
+if \(\exists L > 0, r > 0\) such that:
 \[
     \lVert f(t,x) - f(t,y) \rVert \leq L \lVert x - y \rVert \quad \forall
      x, y \in B_r(x_0) \; \forall t \in [t_0, t_f]
-\]  
+\]
+\begin{definition}[Locally Lipschitz]
+    A function \(f : \mathbb{R}^n \to \mathbb{R}^n\) is said to be \emph{locally lipschitz} on a 
+    set \(D \subset \mathbb{R}^n\) if \(\forall x_0 \in D\), the function \(f\) satisfies the
+    lipschitz condition for lipschitz constant \(L(x_0)\).\\
+    The function is said to be lipschitz on \(D\) if the function satifies the lipschitz condition
+    for all \(x \in D\) with a uniform lipschitz constant \(L\).
+\end{definition}
+The function \(f : \mathbb{R} ^n \to \mathbb{R} ^n\) is said to be globally lipschitz if the function
+is lipschitz on the entire domain \(\mathbb{R}^n\).
 \begin{example}[Lipschitz Condition]
     Let \(f: I \subset \mathbb{R} \to \mathbb{R} \ni \vert f^{\prime} (x) \vert \leq k, \forall x \in I\).
     Then, \(f\) satisfies the Lipschitz condition on I with \(L = k\):
@@ -387,6 +396,136 @@ if:
     \]
 \end{example}
 \begin{lemma}[Lipschitz Condition for a Convex Set]
-    Let \(f : [a,b] \times D \to \mathbb{R}^n\) be a continuous function, where \(D\) is a
-    compact subset of \(\mathbb{R}^n\).
+    Let \(f : [a,b] \times D \to \mathbb{R}^n\) be a continuous on some domain \(D \subset \mathbb{R}^n\). Suppose
+    \(\frac{\partial f}{\partial x} \) exists and is continuous on \([a,b] \times D\). If for a convex subset
+    \(W \subset D, \; \exists L > 0\) such that:
+    \[
+        \left\lVert \frac{\partial f}{\partial x} (t,x) \right\rVert \leq L \quad \forall (t,x) \in [a,b] \times W
+    \]
+    Then,
+    \[
+        \lVert f(t,x) - f(t,y) \rVert \leq L \lVert x - y \rVert \quad \forall \; (t,x), (t,y) \in [a,b] \times W
+    \]
 \end{lemma}
+\begin{lemmaproof}
+    For a convex set, we have:
+    \[
+        \begin{aligned}
+            \gamma (s) &= x_1(1-s) + x_2 s \quad s \in [0,1] \\
+            g(s) &\coloneqq f(t, \gamma(s)) \\
+        \end{aligned}
+        \]
+        \[
+        \begin{aligned}
+            \implies \lVert f(t,x_1) - f(t,x_2) \rVert &= \lVert g(0) - g(1) \rVert  = 
+            \left\lVert \int\limits_{0}^{1} \frac{\partial g}{\partial s} \mathrm{d}s \right\rVert \\  
+            &\leq \int\limits_{0}^{1} \left\lVert \frac{\partial g}{\partial \gamma } 
+            \frac{\partial \gamma}{\partial s} \right\rVert \mathrm{d}s \\
+            &\leq \int\limits_{0}^{1} L \lVert x_2 - x_1 \rVert \mathrm{d}s = L \lVert x_2 - x_1 \rVert
+        \end{aligned}
+    \]
+    Thus, \(f\) satisfies the Lipschitz condition on \(W\).
+\end{lemmaproof}
+\begin{lemma}
+    If \(f(t,x)\) and \(\frac{\partial f}{\partial x} (t,x)\) are continuous on \([a,b] \times D\), or some
+    domain \(D \subset \mathbb{R}^n\), then \(f\) is locally lipschitz in \(x\) on \([a,b] \times D\). 
+\end{lemma}
+\begin{lemma}
+    Supoose \(f(t,x)\) and \(\frac{\partial f}{\partial x} (t,x)\) are continuous on \([a,b] \times \mathbb{R} ^n\).
+    Then, \(f\) is globally lipschitz in \(x\) on \([a,b] \times \mathbb{R} ^n\) iff 
+    \(\frac{\partial f}{\partial x} (t,x)\) is uniformly bounded on \([a,b] \times \mathbb{R} ^n\).
+\end{lemma}
+
+\begin{example}
+    \[
+        \begin{aligned}
+            f(x) &\coloneqq \begin{bmatrix}
+                -ax_1 + x_1 x_{2}  \\
+                ax_2 - x_1 x_2 \\
+            \end{bmatrix} \quad a > 0\\
+            \frac{\partial f}{\partial x} (x) &\coloneqq \begin{bmatrix}
+                -a + x_2 & x_1 \\
+                -x_2 & a - x_1 \\
+            \end{bmatrix}
+        \end{aligned}
+    \]
+    Since \(f(x)\) is differentiable and continuous over \(\mathbb{R}^2\), \(f(x)\) is locally lipschitz. 
+    But since \(\frac{\partial f}{\partial x} (x)\) is not uniformly bounded, \(f(x)\) is not globally lipschitz.
+    
+    But, it can be lipschitz on some compact set. Let,
+    \[
+        W \coloneqq \{x \in \mathbb{R}^2 \mid \vert x_1 \vert < a_1, \vert x_2 \vert < a_2\}
+    \]
+    Here, we can explot the equivalence of \(p\)-norms to chose and find the lipschitz constant. Choose 
+    induced \(\infty \) norm:
+    \[
+        \left\lVert \frac{\partial f}{\partial x} (x) \right\rVert_{\infty} = \max\left\{ \lvert -a + x_2 \rvert, \lvert x_1 \rvert,
+        \lvert -x_2 \rvert, \lvert a - x_1 \rvert \right\} \leq a + a_1 + a_2 \eqqcolon L
+    \] 
+\end{example}
+\subsection{Existence and Uniqueness of Solutions}
+\begin{theorem}
+    Let \(f(t,x)\) be a piecewise continuous function in \(t\), and locally lipschitz in \(x, \; \forall t \geq t_0\),
+    and \(\forall x \in D \subset \mathbb{R}^n\). Let, \(W\) is a compact subset of \(D\) and \(x_0 \in W\). Suppose
+    that every solution of \(\dot{x} = f(t,x),\; x(t_0) = x_0\) lies entirly in \(W,\; \forall t \geq  t_0\). Then,
+    there exists a unique solution with \(x(t_0) = x_0,\; \forall t \geq t_0 \)   
+\end{theorem}
+\begin{proof}
+    TODO: misunderstood and wrote the wrong proof.
+\end{proof}
+\begin{lemma}[Comparison Lemma]
+    Consider the scalar ODE: \(\dot{u} = f(t,u), u(t_0) = u_0\). Supoose \(ft(t,u)\) is continuous in \(t\) and
+    locally lipschitz in \(u, \; \forall t \geq t_0, \text{ and, } u(t) \in J \subset \mathbb{R}, \; \forall t \geq t_0\).
+    Let \([t_0,T]\) be the maximal interval of existence of the solution \(u(t) \in J,\; \forall t \in [T_o,T)  \).
+    Let \(v(t)\) be continuous such that:
+    \[
+        D^+ v(t) \leq f(t,v(t)) \quad v(t_0) \leq u_0, with \; v(t) \in J, \; \forall t \in [t_0, T)
+    \]
+    Then, \(v(t) \leq u(t), \; \forall t \in [t_0, T)\).
+\end{lemma}
+\begin{lemmaproof}
+    Assume that \(V(\cdot)\) is differentiable. The proof holds otherwise too, but assumption greatly simplifies
+    the proof.
+    Proof by contraction:
+    Suppose \(\exists a,b \in [t_0,t_1]\) such that:
+    \[
+        v(a) = u(a) \quad v(t) < u(t) \quad \forall t \in (a,b]
+    \] 
+    \[
+        \begin{aligned}
+            \implies v(t) - v(a) &> u(t) - u(a) \quad \forall t \in (a,b]\\
+            \lim_{h \to 0^+} \frac{v(a+h) - v(a)}{h} &\geq \lim_{h \to 0^+} \frac{u(a+h) - u(a)}{h} \\
+            \implies \dot{v}(a) &\geq \dot{u}(a) \quad \text{which is a contradiction}            
+        \end{aligned}
+    \]
+\end{lemmaproof}
+\begin{theorem}
+    Let f(t,x) be piecewise continuous in t, and locally lipschitz in x on \([t_0,t_1] \times W\), with
+    Lipschitz constant \(L\), and \(W \subset \mathbb{R}^n\) is a open connected set. Let, \(y(t),z(t)\) be the solutions
+    of \(\dot{y} = f(t,y),\; y(t_0) = y_0, \; \dot{z} = f(t,z) + g(t,z),\; z(t_0 ) = z_0\), such that 
+    \(y(t),z(t) \in W,\; \forall t \in [t_0,t_1]\). Suppose \(\lVert g(t,x)\rVert \leq  \mu \;\forall (t,x) \in
+    [t_0,t_1]\times W,\;\mu >0,\; \lVert y_0 - z_0 \rVert \leq \gamma  \), Then,
+    \[
+        \lVert y(t) - z(t) \rVert \leq \gamma e^{L(t-t_0)} + \frac{\mu}{L} \left( e^ {L(t-t_0)} - 1\right) 
+        \quad \forall t \in [t_0,t_1]  
+    \]
+\end{theorem}
+\begin{proof}
+    Note that, if we know more about, the system, then the upper bound can be made tighter and hence, the above upper 
+    bound can be useless at times.
+    \[
+        \begin{aligned}
+            y(t) = &y_0 + \int\limits_{t_0}^{t} f(s,y(s)) ds \\
+            z(t) = &z_0 + \int\limits_{t_0}^{t} f(s,z(s)) + g(s,z(s)) ds\\
+            \implies \lVert y(t) - z(t) \rVert &\leq \lVert y_0 - z_0 \rVert + 
+            \int\limits_{t_0}^{t} \lVert f(s,y(s)) - f(s,z(s)) \rVert ds + \int\limits_{t_0}^{t} \lVert g(s,z(s)) \rVert ds\\
+            & \leq \gamma  + \mu (t-t_0) + \int\limits_{t_0}^{t} L \lVert y(s) - z(s) \rVert ds
+        \end{aligned}
+    \]
+    Using, the resutls of gronwell-bellman inequality, we have:
+    \[
+        \lVert y(t) - z(t) \rVert \leq \gamma e^{L(t-t_0)} + \frac{\mu}{L} \left( e^ {L(t-t_0)} - 1\right) 
+        \quad \forall t \in [t_0,t_1]  
+    \]
+    Thus, completing the proof.
+\end{proof}
